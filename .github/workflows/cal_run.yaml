@@ -33,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FODBOLD_KEY: ${{ secrets.FODBOLD_KEY }}
           PASS: ${{ secrets.PASS }}
-        LANG: "da_DK.UTF-8"
+          LANG: "da_DK.UTF-8"
         run: |
           Rscript -e 'source("pakker setup.R")'
           Rscript -e  'source("next games.R")'
