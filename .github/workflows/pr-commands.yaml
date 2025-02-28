@@ -1,0 +1,52 @@
+
+
+on:
+  #schedule:
+  #  - cron: "5 12 * * 1,4"
+  workflow_dispatch:
+
+
+permissions: read-all
+
+jobs:
+  sports-calendar:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+        
+      - name: setup-R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.1'
+          
+      - name: Install R Dependencies
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          cache-version: 1
+    
+      - name: da_DK.UTF-8
+        run: |
+          sudo locale-gen da_DK.UTF-8
+          sudo update-locale LANG=da_DK.UTF-8
+
+      - name: run R scripts
+        env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FODBOLD_KEY: ${{ secrets.FODBOLD_KEY }}
+        PASS: ${{ secrets.PASS }}
+        LANG: "da_DK.UTF-8"
+        run: |
+          Rscript -e 'source("pakker setup.R")'
+          Rscript -e  'source("next games.R")'
+
+      - name: Commit results
+        run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add ics_files/*  # Replace with your folder path
+          git commit -m "Opdateret kal filer" || echo "No changes to commit"
+          git push
+
+
