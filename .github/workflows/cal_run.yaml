@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Update apt package lists
+        run: |
+          sudo apt-get update
+          sudo apt-get install --fix-missing
+    
       - name: checkout repo
         uses: actions/checkout@v4
         
