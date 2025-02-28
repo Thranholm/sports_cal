@@ -3,8 +3,7 @@
 rm(list = ls())
 
 library(pacman)
-p_load(tidyverse, lubridate, httr, httr2, jsonlite, 
-       devtools, janitor, stringr, calendar, gmailr)
+p_load(tidyverse, httr2, jsonlite, calendar, gmailr)
 
 
 base_url <- "https://allsportsapi2.p.rapidapi.com/api"
