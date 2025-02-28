@@ -5,9 +5,6 @@ on:
   #  - cron: "5 12 * * 1,4"
   workflow_dispatch:
 
-
-permissions: read-all
-
 jobs:
   sports-calendar:
     runs-on: ubuntu-latest
@@ -33,9 +30,9 @@ jobs:
 
       - name: run R scripts
         env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FODBOLD_KEY: ${{ secrets.FODBOLD_KEY }}
-        PASS: ${{ secrets.PASS }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FODBOLD_KEY: ${{ secrets.FODBOLD_KEY }}
+          PASS: ${{ secrets.PASS }}
         LANG: "da_DK.UTF-8"
         run: |
           Rscript -e 'source("pakker setup.R")'
