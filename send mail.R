@@ -1,8 +1,5 @@
 ### Send mail
 
-library(pacman)
-
-p_load(gmailr)
 
 gm_auth_configure(path = Sys.getenv("GMAILR_OAUTH"))
 
@@ -25,4 +22,5 @@ test_email <- gm_mime() %>%
   reduce(.init = ., .x = attachments, .f = attach_multiple)
 
 gm_send_message(test_email)
+
 

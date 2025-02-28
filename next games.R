@@ -27,7 +27,7 @@ get_next_matches <- function(team_id, sport = "football",
 
 
 
-team_ids <- c(1281, 44, 4860, 2673, 2556)
+team_ids <- c(1281, 44, 34, 4860, 2673, 2556)
 
 kalender <- tibble(cal = rep(list(NULL), length(team_ids)))
 
@@ -49,7 +49,6 @@ next_month <- kalender$cal %>%
   mutate(end_time = startTimestamp + hours(2)) %>% 
   mutate(summary = paste(homeTeam_name, awayTeam_name, sep = " - "))
 
-p_load(calendar)
 
 outdated_files <- map(list.files("ics_files", full.names = T), ic_read) %>% 
   set_names(list.files("ics_files", full.names = T)) %>% 
