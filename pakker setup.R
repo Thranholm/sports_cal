@@ -12,3 +12,4 @@ header <- c("X-RapidAPI-Host" = "allsportsapi2.p.rapidapi.com",
             "X-RapidAPI-Key" = secret_decrypt(Sys.getenv("PASS"), "FODBOLD_KEY"))
 
 
+
