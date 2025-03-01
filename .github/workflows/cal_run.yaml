@@ -8,6 +8,8 @@ on:
 jobs:
   sports-calendar:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     
     steps:
       - name: Install system dependencies
