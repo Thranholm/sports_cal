@@ -74,15 +74,18 @@ new_ics <- next_month %>%
 
 if (nrow(exist_ics) > 0) update_ics <- setdiff(new_ics, exist_ics) else update_ics <- new_ics
 
-for (i in 1:nrow(update_ics)){
-  
-  ic_event(start_time = update_ics$dtstart[i],
-           end_time = update_ics$dtend[i],
-           summary = update_ics$summary[i],
-           more_properties = TRUE,
-           event_properties = c("CLASS" = "PRIVATE")) %>% 
-    ic_write(paste0("ics_files/", str_remove_all(
-      str_replace(update_ics$summary[i], "-", "_"),
-      " "), ".ics"))
-  
+if (nrow(update_ics) > 1) {
+  for (i in 1:nrow(update_ics)){
+    
+    ic_event(start_time = update_ics$dtstart[i],
+             end_time = update_ics$dtend[i],
+             summary = update_ics$summary[i],
+             more_properties = TRUE,
+             event_properties = c("CLASS" = "PRIVATE")) %>% 
+      ic_write(paste0("ics_files/", str_remove_all(
+        str_replace(update_ics$summary[i], "-", "_"),
+        " "), ".ics"))
+    
+  }
 }
+
