@@ -3,7 +3,7 @@
 
 try(
   gm_auth(token = gm_token_read(
-    "setuo_tok/gm_token.rds",
+    path = "setuo_tok/gm_token.rds",
     key = "FODBOLD_KEY"
   ))
 )
