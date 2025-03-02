@@ -1,7 +1,12 @@
 ### Send mail
 
 
-gm_auth_configure(path = Sys.getenv("GMAILR_OAUTH"))
+try(
+  gm_auth(token = gm_token_read(
+    "setuo_tok/gm_token.rds",
+    key = "FODBOLD_KEY"
+  ))
+)
 
 
 attach_multiple <- function(mime, attachment, ...) {
@@ -16,11 +21,11 @@ attachments <- map_chr(update_ics$summary, ~paste0("ics_files/",
                                                      " "), ".ics"))
 
 test_email <- gm_mime() %>% 
-  gm_to(secret_decrypt(Sys.getenv("DST_MAIL"), "FODBOLD_KEY")) %>%
+  # gm_to(secret_decrypt(Sys.getenv("DST_MAIL"), "FODBOLD_KEY")) %>%
+  gm_to(secret_decrypt("59FM83CiJC9ZZbrJqw3YufDeX7I8e5wNEk2mw-uHxQsgRjZebtg", "FODBOLD_KEY")) %>% 
   gm_subject("Sport næste måned") %>% 
   gm_text_body("Se vedhæftet") %>% 
   reduce(.init = ., .x = attachments, .f = attach_multiple)
 
 gm_send_message(test_email)
-
 
