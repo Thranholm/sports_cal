@@ -24,8 +24,9 @@ test_email <- gm_mime() %>%
   gm_to(secret_decrypt("EoBIB9DK5t2Xwy4X8qAFNp8LiUyzoRavNp8", "FODBOLD_KEY")) %>%
   # gm_to(secret_decrypt("59FM83CiJC9ZZbrJqw3YufDeX7I8e5wNEk2mw-uHxQsgRjZebtg", "FODBOLD_KEY")) %>% 
   gm_subject("Sport næste måned") %>% 
-  gm_text_body("Se vedhæftet") %>% 
-  reduce(.init = ., .x = attachments, .f = attach_multiple)
+  gm_text_body("Se vedhæftet", update_ics$summary) 
+# %>% 
+#   reduce(.init = ., .x = attachments, .f = attach_multiple)
 
 gm_send_message(test_email)
 
