@@ -61,7 +61,7 @@ outdated_files <- map(list.files("ics_files", full.names = T), ic_read) %>%
 ## Delete files
 unlink(outdated_files)
 
-exist_ics <- map(list.files("ics_files", full.names = T), ic_read) %>% 
+exist_ics <- map(paste0("ics_files/", list.files("ics_files")), ic_read) %>% 
   bind_rows() %>% 
   select(-any_of("UID")) %>% 
   rename_with(str_to_lower)
