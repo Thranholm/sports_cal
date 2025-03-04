@@ -78,8 +78,14 @@ cat(paste0(new_ics$summary, new_ics$dtstart, collapse = ", "))
 
 
 ## TODO::: måske driller tidszonerne
-# if (nrow(exist_ics) > 0) update_ics <- setdiff(new_ics, exist_ics) else update_ics <- new_ics
-# 
+if (nrow(exist_ics) > 0) {
+  update_ics <- setdiff(new_ics, exist_ics)
+}  else {
+  update_ics <- new_ics
+}
+
+cat("\n\n\n", paste0(update_ics$summary, update_ics$dtstart, collapse = ", "))
+
 # if (nrow(update_ics) > 1) {
 #   for (i in 1:nrow(update_ics)){
 # 
