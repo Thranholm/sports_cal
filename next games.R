@@ -79,9 +79,9 @@ cat(paste0(new_ics$summary, new_ics$dtstart, collapse = ", "))
 
 ## TODO::: måske driller tidszonerne
 if (!is.null(dim(exist_ics))) {
-  update_ics <- dplyr::setdiff(new_ics, exist_ics)
+  update_ics <- anti_join(new_ics, exist_ics, by = join_by(dtstart, dtend, summary, class))
 }  else {
-  update_ics <- new_ics
+  # update_ics <- new_ics
 }
 
 cat("\n\n\n", paste0(update_ics$summary, update_ics$dtstart, collapse = ", "))
