@@ -78,7 +78,7 @@ cat(paste0(new_ics$summary, new_ics$dtstart, collapse = ", "))
 
 
 ## TODO::: måske driller tidszonerne
-if (nrow(exist_ics) > 0) {
+if (!is.null(dim(exist_ics))) {
   update_ics <- dplyr::setdiff(new_ics, exist_ics)
 }  else {
   update_ics <- new_ics
