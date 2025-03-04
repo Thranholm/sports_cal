@@ -2,4 +2,4 @@
 
 source("pakker setup.R")
 source("next games.R")
-# source("send mail.R")
+source("send mail.R")
