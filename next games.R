@@ -10,21 +10,30 @@ get_next_matches <- function(team_id, sport = "football",
     req_headers(!!!header) %>% 
     req_perform()
   
-  t2 <- t %>% 
-    resp_body_string() %>% 
-    fromJSON() %>% 
-    pluck("events") %>% 
-    as_tibble() %>% 
-    unnest(everything(), names_sep = "_")
-  
-  t2$sport <- t2$tournament_category$sport$name
-  
-  t2 %>% 
-    select(sport, tournament_name, homeTeam_name, awayTeam_name, changes_changeTimestamp, startTimestamp) %>% 
-    mutate(across(c(startTimestamp, changes_changeTimestamp), ~as_datetime(.x, tz = "CET")))
+  if(resp_status_desc(t) == "OK") {
+    
+    t2 <- t %>% 
+      resp_body_string() %>% 
+      fromJSON() %>% 
+      pluck("events") %>% 
+      as_tibble() %>% 
+      unnest(everything(), names_sep = "_")
+    
+    t2$sport <- t2$tournament_category$sport$name
+    
+    t2 %>% 
+      select(sport, tournament_name, homeTeam_name, awayTeam_name, changes_changeTimestamp, startTimestamp) %>% 
+      mutate(across(c(startTimestamp, changes_changeTimestamp), ~as_datetime(.x, tz = "CET")))  
+
+  } else {
+    
+    tibble("sport", "tournament_name", "homeTeam_name", "awayTeam_name", 
+           "changes_changeTimestamp", "startTimestamp",
+           .rows = 0)
+    
+  }
   
 }
-
 
 
 team_ids <- c(1281, 44, 34, 4860, 2673, 2556)
@@ -44,6 +53,7 @@ kalender <- rbind(kalender, nest(get_next_matches(rugby_id, sport = "rugby", hea
                                  .key = "cal"))
 
 next_month <- kalender$cal %>%
+  discard(~nrow(.x) == 0) %>% 
   map(~filter(.x, startTimestamp < today() + 31)) %>% 
   bind_rows() %>% 
   mutate(end_time = startTimestamp + hours(2)) %>% 
