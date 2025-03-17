@@ -24,9 +24,7 @@ find_team_id <- function(team_name, sport = "football",
 }
 
 
-hold <- c("Brøndby", "Liverpool", "Royale%20Union", "Dortmund", "Mainz")
-
-hold <- "Leeds"
+hold <- c("Brøndby", "Liverpool", "Royale%20Union", "Dortmund", "Mainz", "Leeds")
 
 for(i in hold){
   
