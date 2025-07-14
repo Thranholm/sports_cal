@@ -36,10 +36,10 @@ jobs:
           
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
-        env:
-          RENV_CONFIG_PAK_ENABLED: true
-        with:
-          cache-version: 1
+        # env:
+        #   RENV_CONFIG_PAK_ENABLED: true
+        # with:
+        #   cache-version: 1
     
       - name: da_DK.UTF-8
         run: |
