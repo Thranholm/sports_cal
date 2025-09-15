@@ -106,6 +106,7 @@ if (nrow(update_ics) > 1) {
       ic_write(paste0("ics_files/", str_remove_all(
         str_replace(update_ics$summary[i], "-", "_"),
         " "), ".ics"))
+    Sys.sleep(2)
 
   }
 }
