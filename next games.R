@@ -95,7 +95,7 @@ if (!is.null(dim(exist_ics))) {
 
 # cat("\n\n\n", paste0(update_ics$summary, update_ics$dtstart, collapse = ", "))
 
-if (nrow(update_ics) > 1) {
+if (nrow(update_ics) > 0) {
   for (i in 1:nrow(update_ics)){
 
     ic_event(start_time = update_ics$dtstart[i],
