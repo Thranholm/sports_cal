@@ -17,9 +17,9 @@ attach_multiple <- function(mime, attachment, ...) {
 
 attachments <- map_chr(update_ics$summary, ~paste0("ics_files/", 
                                                    str_remove_all(
-                                                     str_replace(
-                                                      URLdecode(.x), "-", "_"),
-                                                     " "), ".ics"))
+                                                     str_replace_all(
+                                                      .x, "-", "_"),
+                                                     " |/"), ".ics"))
 
 test_email <- gm_mime() %>% 
   gm_to(secret_decrypt("EoBIB9DK5t2Xwy4X8qAFNp8LiUyzoRavNp8", "FODBOLD_KEY")) %>%
