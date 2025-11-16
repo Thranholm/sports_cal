@@ -104,7 +104,9 @@ if (nrow(update_ics) > 0) {
              more_properties = TRUE,
              event_properties = c("CLASS" = "PRIVATE")) %>%
       ic_write(paste0("ics_files/", str_remove_all(
-        str_replace(update_ics$summary[i], "-", "_"),
+        str_replace(
+          str_replace(update_ics$summary[i], "-", "_"),
+          "/", "%2F"),
         " "), ".ics"))
     Sys.sleep(2)
 

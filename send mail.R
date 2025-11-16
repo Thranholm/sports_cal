@@ -17,7 +17,8 @@ attach_multiple <- function(mime, attachment, ...) {
 
 attachments <- map_chr(update_ics$summary, ~paste0("ics_files/", 
                                                    str_remove_all(
-                                                     str_replace(.x, "-", "_"),
+                                                     str_replace(
+                                                      URLdecode(.x), "-", "_"),
                                                      " "), ".ics"))
 
 test_email <- gm_mime() %>% 
