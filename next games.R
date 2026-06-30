@@ -26,7 +26,7 @@ get_next_matches <- function(team_id, sport = "football",
       mutate(across(c(startTimestamp, changes_changeTimestamp), ~as_datetime(.x, tz = "CET")))  
 
   } else {
-    
+   
     tibble("sport", "tournament_name", "homeTeam_name", "awayTeam_name", 
            "changes_changeTimestamp", "startTimestamp",
            .rows = 0)
@@ -60,8 +60,8 @@ next_month <- kalender$cal %>%
   mutate(summary = paste(homeTeam_name, awayTeam_name, sep = " - "))
 
 
-outdated_files <- map(list.files("ics_files", full.names = T), ic_read) %>% 
-  set_names(list.files("ics_files", full.names = T)) %>% 
+outdated_files <- map(list.files("ics_files", full.names = T, pattern = "\\.ics$"), ic_read) %>% 
+  set_names(list.files("ics_files", full.names = T, pattern = "\\.ics$")) %>% 
   as_tibble_col() %>% 
   mutate(fil = names(value)) %>% 
   mutate(outdated = map_int(value, ~nrow(filter(.x, DTSTART < now(tzone = "CET"))))) %>% 
@@ -71,8 +71,8 @@ outdated_files <- map(list.files("ics_files", full.names = T), ic_read) %>%
 ## Delete files
 unlink(outdated_files)
 
-if(length(list.files("ics_files")) > 0){
-  exist_ics <- map(paste0("ics_files/", list.files("ics_files")), ic_read) %>% 
+if(length(list.files("ics_files", pattern = "\\.ics$")) > 0){
+  exist_ics <- map(paste0("ics_files/", list.files("ics_files", pattern = "\\.ics$")), ic_read) %>% 
     bind_rows() %>% 
     select(-any_of("UID")) %>% 
     rename_with(str_to_lower)
